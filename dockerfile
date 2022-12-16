@@ -51,10 +51,11 @@ RUN powershell Add-WindowsFeature Web-Metabase
 RUN powershell Add-WindowsFeature Web-Scripting-ToolsRUN Remove-WebSite -Name 'Default Web Site'WORKDIR //inetpub/wwwroot/Messenger
 COPY Messenger/. /inetpub/wwwroot/MessengerRUN powershell Import-Module webadministrationRUN powershell New-WebAppPool MessengerRUN powershell $WebSite New-Website -Name 'Messenger' -Port 443  -PhysicalPath 'C:\inetpub\wwwroot\Messenger'   -ApplicationPool 'Messenger' -Ssl -SslFlags 0 ;\
     $pwd = ConvertTo-SecureString -String 'password' -Force -AsPlainText;\
-    $cert = Import-PfxCertificate -Exportable -FilePath 'C:\inetpub\wwwroot\Messenger\wild.riyadbank.com-2022-06-26-135101.p12' -CertStoreLocation cert:\localMachine\My -Password $pwd
+    $cert = Import-PfxCertificate -Exportable -FilePath 'C:\inetpub\wwwroot\Messenger\app.study.com-2022-06-26-135101.p12' -CertStoreLocation cert:\localMachine\My -Pass*** $pwd
 
 
 WORKDIR c://
 COPY nlu/. c://.SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]#RUN ./setup.exe \quite '/qn /norestart /L*V "AlkhawarizmiSetup.log"' -PassThru
 #| Wait-Process;
-RUN Start-Process 'AlkhawarizmiSetup.msi' '/qn /norestart /L*V "AlkhawarizmiSetup.log"' -PassThru | Wait-Process;#######################run container with static ip addr
+RUN Start-Process 'AlkhawarizmiSetup.msi' '/qn /norestart /L*V "app.log"' -PassThru | Wait-Process;
+
